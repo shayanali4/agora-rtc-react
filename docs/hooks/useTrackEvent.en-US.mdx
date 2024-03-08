@@ -1,0 +1,40 @@
+## useTrackEvent
+
+This hook lets you listen to specific events of the local or remote track.
+
+- When the component is mounted, this hook registers the corresponding event listener.
+- When the component is unmounted, this hook destroys the corresponding event listener.
+
+#### Parameters
+
+| Parameter  | Type       | Required | Description                                               |
+| ---------- | ---------- | -------- | --------------------------------------------------------- |
+| `track`    | `ITrack`   | Yes      | The local or remote track object.                         |
+| `event`    | `string`   | Yes      | The event name.                                           |
+| `listener` | `Function` | Yes      | The callback function to run when the event is triggered. |
+
+Different `track` objects support different `event` and `listener` combinations. The supported combinations are as follows:
+
+| `track`                                                               | `event` and `listener`                                                                                                         |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `ILocalTrack` &VerticalLine; `ILocalVideoTrack` &VerticalLine; `null` | See [`ILocalTrack.on`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/ilocaltrack.html#on).                          |
+| `IBufferSourceAudioTrack` &VerticalLine; `null`                       | See [`IBufferSourceAudioTrack.on`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/ibuffersourceaudiotrack.html#on).  |
+| `ILocalVideoTrack` &VerticalLine; `null`                              | See [`ILocalVideoTrack.on`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/ilocalvideotrack.html#on).                |
+| `IRemoteTrack` &VerticalLine; `null`                                  | See [`IRemoteTrack.on`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iremotetrack.html#event_first_frame_decoded). |
+
+#### Returns
+
+None.
+
+#### Sample code
+
+```jsx
+import { useRTCClient, useLocalCameraTrack, useTrackEvent } from "agora-rtc-react";
+
+function App() {
+  const videoTrack = useLocalCameraTrack();
+  useTrackEvent(client, "video-element-visible-status", () => {});
+
+  return <></>;
+}
+```

@@ -1,0 +1,99 @@
+{
+  "name": "agora-rtc-react",
+  "version": "2.1.0",
+  "private": false,
+  "description": "Agora RTC React SDK",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AgoraIO-Extensions/agora-rtc-react.git",
+    "directory": "packages/agora-rtc-react"
+  },
+  "keywords": [
+    "react",
+    "agora-rtc-sdk-ng"
+  ],
+  "bugs": {
+    "url": "https://github.com/AgoraIO-Extensions/agora-rtc-react/issues"
+  },
+  "contributors": [
+    "hyrious",
+    "LichKing-2234",
+    "CRIMX",
+    "guoxianzhe"
+  ],
+  "sideEffects": false,
+  "source": "src/index.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "build": "tsup",
+    "release": "release-it",
+    "start": "pnpm run -F example-overview start",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "storybook-docs": "storybook dev --docs",
+    "build-storybook-docs": "storybook build --docs",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest --ui",
+    "gene-stories": "esbuild-dev ../../scripts/docs/generate-storybook-mdx.ts",
+    "gene-md": "esbuild-dev ../../scripts/docs/generate-docs.ts",
+    "update-readme": "pnpm esbuild-dev ../../scripts/docs/update-readme.ts",
+    "gene-comment": "esbuild-dev ../../scripts/docs/api.ts && esbuild-dev ../../scripts/docs/component.ts && esbuild-dev ../../scripts/docs/data-types.ts",
+    "gene-docs": "pnpm run gene-md && pnpm run gene-stories && pnpm run gene-comment && pnpm run update-readme",
+    "typedoc": "typedoc src"
+  },
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "main": "src/index.ts",
+  "devDependencies": {
+    "agora-rtc-sdk-ng": "4.20.0",
+    "agora-rtc-react-ui": "https://github.com/shayanali4/agora-rtc-react-ui.git"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "requireCleanWorkingDir": false,
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true,
+      "allowSameVersion": true
+    },
+    "github": {
+      "release": true
+    },
+    "hooks": {
+      "before:npm:release": "pnpm esbuild-dev ../../scripts/release/clean.ts source:./package.json @./package.json && pnpm eslint --fix package.json && cp ../../LICENSE ../../README.md . && pnpm tsup"
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": {
+          "name": "conventionalcommits",
+          "types": [
+            {
+              "type": "feat",
+              "section": "Features"
+            },
+            {
+              "type": "fix",
+              "section": "Bug Fixes"
+            },
+            {
+              "type": "docs",
+              "section": "Documentation"
+            }
+          ]
+        },
+        "infile": ""
+      }
+    }
+  }
+}

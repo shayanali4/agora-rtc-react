@@ -1,0 +1,27 @@
+## useConnectionState
+
+用于获取详细的 SDK 连接状态。
+
+#### 参数
+
+| 参数名   | 类型                                                                                          | 是否必选 | 描述                                                                                                         |
+| -------- | --------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+| `client` | [`IAgoraRTCClient`](/api-ref/rtc/react/interfaces/iagorartcclient.html) &VerticalLine; `null` | 可选     | 通过 Web SDK 的 [`IAgoraRTC.createClient`](/api-ref/rtc/react/interfaces/iagorartc.html#createclient) 创建。 |
+
+#### 返回值
+
+| 类型              | 描述                                                                                                |
+| ----------------- | --------------------------------------------------------------------------------------------------- |
+| `ConnectionState` | SDK 与服务器的连接状态。详见 [`ConnectionState`](/api-ref/rtc/react/globals.html#connectionstate)。 |
+
+#### 使用示例
+
+```jsx
+import { useConnectionState } from "agora-rtc-react";
+
+function App() {
+  const connectionState = useConnectionState();
+
+  return <div>{connectionState}</div>;
+}
+```

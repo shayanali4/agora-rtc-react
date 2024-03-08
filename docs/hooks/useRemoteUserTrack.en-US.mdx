@@ -1,0 +1,36 @@
+## useRemoteUserTrack
+
+This hook lets you retrieve the audio or video track of a remote user.
+
+#### Parameters
+
+| Parameter   | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `user`      | `IAgoraRTCRemoteUser` &VerticalLine; `undefined`                                                                         | Yes      | The remote user.                                                                                                                                     |
+| `mediaType` | `"video"` &VerticalLine; `"audio"`                                                                                       | Yes      | The media type. Pass `"video"` or `"audio"`.                                                                                                         |
+| `client`    | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property    | Type                                                                              | Description                                                                                                                                                                                                         |
+| ----------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `track`     | `IRemoteVideoTrack` &VerticalLine; `IRemoteAudioTrack` &VerticalLine; `undefined` | The audio or video track of the remote user (depending on the `mediaType` you specify). If the remote user or track does not exist, `undefined` is returned.                                                        |
+| `isLoading` | `boolean`                                                                         | <li>`true`: The hook is performing operations related to retrieving the tracks.</li><li>`false`: The hook completes operations related to retrieving the tracks, but it does not indicate a successful result.</li> |
+| `error`     | `AgoraRTCReactError` &VerticalLine; `null`                                        | Returns `null` if the track is successfully retrieved, otherwise throws an error. See [`AgoraRTCReactError`](https://api-ref.agora.io/en/video-sdk/reactjs/2.x/classes/AgoraRTCReactError.html) for details.        |
+
+#### Sample code
+
+```jsx
+import { useRemoteUsers, useRemoteUserTrack } from "agora-rtc-react";
+
+function App() {
+  const remoteUsers = useRemoteUsers();
+
+  const videoTrack = useRemoteUserTrack(remoteUsers[0], "video");
+  const audioTrack = useRemoteUserTrack(remoteUsers[0], "audio");
+
+  return <></>;
+}
+```

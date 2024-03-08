@@ -1,0 +1,35 @@
+## usePublish
+
+This hook lets you publish the local tracks when the component is ready and unpublish them when the component is unmounted.
+
+#### Parameters
+
+| Parameter        | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tracks`         | `(ILocalTrack` &VerticalLine; `null)[]`                                                                                  | Yes      | The list of local tracks.                                                                                                                            |
+| `readyToPublish` | `boolean`                                                                                                                | No       | Whether the local tracks are ready to publish. The default value is `true`.                                                                          |
+| `client`         | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property    | Type                                       | Description                                                                                                                                                                                                         |
+| ----------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isLoading` | `boolean`                                  | <li>`true`: The hook is performing operations related to publishing the tracks.</li><li>`false`: The hook completes operations related to publishing the tracks, but it does not indicate a successful result.</li> |
+| `error`     | `AgoraRTCReactError` &VerticalLine; `null` | Returns `null` if the tracks are successfully published, otherwise throws an error. See [`AgoraRTCReactError`](https://api-ref.agora.io/en/video-sdk/reactjs/2.x/classes/AgoraRTCReactError.html) for details.      |
+
+#### Sample code
+
+```jsx
+import { useLocalMicrophoneTrack, useLocalCameraTrack, usePublish } from "agora-rtc-react";
+
+function App() {
+  // get audioTrack and videoTrack before publish
+  const audioTrack = useLocalMicrophoneTrack();
+  const videoTrack = useLocalCameraTrack();
+  usePublish([audioTrack, videoTrack]);
+
+  return <></>;
+}
+```

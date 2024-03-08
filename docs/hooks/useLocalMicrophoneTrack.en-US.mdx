@@ -1,0 +1,36 @@
+## useLocalMicrophoneTrack
+
+This hook lets you create a local microphone audio track. You can call this method multiple times in different components to create multiple tracks. To access the same track in multiple components, pass the same track object to those components.
+
+- This hook can only create the audio track once before the component is destroyed.
+- After the component is unmounted, the audio track created by this hook stops publishing.
+
+#### Parameters
+
+| Parameter          | Type                                                                                                                     | Required | Description                                                                                                                                                                                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ready`            | `boolean`                                                                                                                | No       | Whether it is ready to create the track. The default value is `true`.                                                                                                                                                                                    |
+| `audioTrackConfig` | `MicrophoneAudioTrackInitConfig`                                                                                         | No       | Configurations for initializing the microphone audio track. The default is `{ ANS: true, AEC: true }`. See [`MicrophoneAudioTrackInitConfig`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/microphoneaudiotrackinitconfig.html) for details. |
+| `client`           | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method.                                                                                                     |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property               | Type                                          | Description                                                                                                                                                                                                         |
+| ---------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `localMicrophoneTrack` | `IMicrophoneAudioTrack` &VerticalLine; `null` | The created microphone audio track.                                                                                                                                                                                 |
+| `isLoading`            | `boolean`                                     | <li>`true`: The hook is performing operations related to publishing the tracks.</li><li>`false`: The hook completes operations related to publishing the tracks, but it does not indicate a successful result.</li> |
+| `error`                | `AgoraRTCReactError` &VerticalLine; `null`    | Returns `null` if the track is successfully created, otherwise throws an error. See [`AgoraRTCReactError`](https://api-ref.agora.io/en/video-sdk/reactjs/2.x/classes/AgoraRTCReactError.html) for details.          |
+
+#### Sample code
+
+```jsx
+import { useLocalMicrophoneTrack } from "agora-rtc-react";
+
+function App() {
+  const audioTrack = useLocalMicrophoneTrack(true, { ANS: true, AEC: true });
+
+  return <></>;
+}
+```

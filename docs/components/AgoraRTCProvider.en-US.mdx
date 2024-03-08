@@ -1,0 +1,21 @@
+## AgoraRTCProvider
+
+This component is a [context provider](https://react.dev/learn/passing-data-deeply-with-context), which lets all of the components inside `children` read the `client` prop you pass.
+
+#### Props
+
+| Prop       | Type                                                                                               | Default value | Description                                                                                                                                          |
+| ---------- | -------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `client`   | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) | None          | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+| `children` | `ReactNode`                                                                                        | None          | The React nodes to be rendered.                                                                                                                      |
+
+#### Sample code
+
+```jsx
+import AgoraRTC, { AgoraRTCProvider } from "agora-rtc-react";
+
+function App({ children }) {
+  const [client] = useState(() => AgoraRTC.createClient({ mode: "rtc", codec: "vp8" }));
+  return <AgoraRTCProvider client={client}>{children}</AgoraRTCProvider>;
+}
+```

@@ -1,0 +1,726 @@
+---
+title: Hooks
+---
+
+<H2 className="anchor index-auto-group index-hook-useconnectionstate" id="useconnectionstate">
+  useConnectionState
+</H2>
+
+Returns the detailed connection state of the SDK.
+
+#### Parameters
+
+| Parameter | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `client`  | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+| Type              | Description                                                                                                                                                                    |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ConnectionState` | The connection state between the SDK and Agora's edge server. See [`ConnectionState`](https://api-ref.agora.io/en/video-sdk/web/4.x/globals.html#connectionstate) for details. |
+
+#### Sample code
+
+```jsx
+import { useConnectionState } from "agora-rtc-react";
+
+function App() {
+  const connectionState = useConnectionState();
+
+  return <div>{connectionState}</div>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-useisconnected" id="useisconnected">
+  useIsConnected
+</H2>
+
+Returns whether the SDK is connected to Agora's server.
+
+#### Parameters
+
+| Parameter | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `client`  | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+| Type      | Description                                                                                                   |
+| --------- | ------------------------------------------------------------------------------------------------------------- |
+| `boolean` | <li>`true`: The SDK is connected to the server.</li><li>`false`: The SDK is not connected to the server.</li> |
+
+#### Sample code
+
+```jsx
+import { useIsConnected } from "agora-rtc-react";
+
+function App() {
+  const isConnected = useIsConnected();
+
+  return <div>{isConnected}</div>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-usecurrentuid" id="usecurrentuid">
+  useCurrentUID
+</H2>
+
+Returns the current user ID.
+
+#### Parameters
+
+| Parameter | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `client`  | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+| Type                             | Description                                                                                               |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `UID` &VerticalLine; `undefined` | The user ID of the current user. If the current user has not joined any channel, `undefined` is returned. |
+
+#### Sample code
+
+```jsx
+import { useCurrentUID } from "agora-rtc-react";
+
+function App() {
+  const uid = useCurrentUID();
+
+  return <div>{uid}</div>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-usenetworkquality" id="usenetworkquality">
+  useNetworkQuality
+</H2>
+
+Returns the network quality of the local user.
+
+#### Parameters
+
+| Parameter | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `client`  | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+| Type             | Description                                                                                             |
+| ---------------- | ------------------------------------------------------------------------------------------------------- |
+| `NetworkQuality` | The network quality of the local user. See [`NetworkQuality`](./data-types#networkquality) for details. |
+
+#### Sample code
+
+```jsx
+import { useNetworkQuality } from "agora-rtc-react";
+
+function App() {
+  const networkQuality = useNetworkQuality();
+
+  return <div>{networkQuality}</div>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-usevolumelevel" id="usevolumelevel">
+  useVolumeLevel
+</H2>
+
+Returns the volume level of an audio track at a frequency of once per second.
+
+#### Parameters
+
+| Parameter    | Type                                                                             | Required | Description                                                                                                                                                                         |
+| ------------ | -------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `audioTrack` | `IRemoteAudioTrack` &VerticalLine; `ILocalAudioTrack` &VerticalLine; `undefined` | No       | The local or remote audio track. The local audio track can be created by calling [`useLocalMicrophoneTrack`](./hooks#uselocalmicrophonetrack). If undefined, the volume level is 0. |
+
+#### Returns
+
+| Type     | Description                                                                                                                                 |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `number` | The volume level. The value range is [0,1]. 1 is the highest volume level. Usually a user with a volume level above 0.6 is a speaking user. |
+
+#### Sample code
+
+```jsx
+import { useVolumeLevel, useLocalMicrophoneTrack } from "agora-rtc-react";
+
+function App() {
+  const audioTrack = useLocalMicrophoneTrack();
+  const volumeLevel = useVolumeLevel(audioTrack);
+
+  return <div>{volumeLevel}</div>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-usertcclient" id="usertcclient">
+  useRTCClient
+</H2>
+
+Returns the `IAgoraRTCClient` object.
+
+#### Parameters
+
+| Parameter | Type                                                                                                                     | Required | Description                                                                                                                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `client`  | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | If provided, the passed `IAgoraRTCClient` object is returned. If not provided, the `IAgoraRTCClient` object obtained from the [parent component's context](./components#agorartcprovider) is returned. |
+
+#### Returns
+
+| Type                                                                                               | Description                   |
+| -------------------------------------------------------------------------------------------------- | ----------------------------- |
+| [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) | The `IAgoraRTCClient` client. |
+
+#### Sample code
+
+```jsx
+import { useRTCClient } from "agora-rtc-react";
+
+function App() {
+  const client = useRTCClient();
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-usejoin" id="usejoin">
+  useJoin
+</H2>
+
+This hook lets a user automatically join a channel when the component is ready and automatically leaves the channel when the component is unmounted.
+
+You can customize the conditions required to join a channel using `fetchArgs`. For example, generating a token and other asynchronous operations can be performed before joining the channel.
+
+#### Parameters
+
+| Parameter   | Type                                                                                               | Required | Description                                                                                                                                          |
+| ----------- | -------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fetchArgs` | `JoinOptions` &VerticalLine; `(() => Promise<JoinOptions>)`                                        | Required | The parameters or asynchronous function required to join the channel. See [`JoinOptions`](./data-types#joinoptions) for details.                     |
+| `ready`     | `boolean`                                                                                          | No       | Whether the user is ready to join the channel. The default value is `true`.                                                                          |
+| `client`    | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property      | Type                                       | Description                                                                                                                                                                                                     |
+| ------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data`        | `UID`                                      | The user ID if the user successfully joins the channel. If you does not specify a `uid` when passing `fetchArgs`, the default value `0` is returned.                                                            |
+| `isLoading`   | `boolean`                                  | <li>`true`: The hook is performing operations related to joining the channel.</li><li>`false`: The hook completes operations related to joining the channel, but it does not indicate a successful result.</li> |
+| `isConnected` | `boolean`                                  | <li>`true`: The SDK is connected to the server, indicating that the user successfully joins the channel.</li><li>`false`: The SDK is not connected to the server.</li>                                          |
+| `error`       | `AgoraRTCReactError` &VerticalLine; `null` | Returns `null` if the user successfully joins the channel, otherwise throws an error. See [`AgoraRTCReactError`](./data-types#agorartcreacterror) for details.                                                  |
+
+#### Sample code
+
+```jsx
+import { useJoin } from "agora-rtc-react";
+
+function App() {
+  // Example: passing a function as first argument
+  // useJoin(async () => {
+  //   Fetch the token before joining the channel. Note that the data type of getData must be fetchArgs
+  //   const getData = await getToken();
+  //   return getData;
+  // }, calling);
+
+  useJoin(
+    {
+      appid: YOUR_APPID,
+      channel: YOUR_CHANNEL,
+      token: YOUR_TOKEN,
+    },
+    ready,
+  );
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-usepublish" id="usepublish">
+  usePublish
+</H2>
+
+This hook lets you publish the local tracks when the component is ready and unpublish them when the component is unmounted.
+
+#### Parameters
+
+| Parameter        | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tracks`         | `(ILocalTrack` &VerticalLine; `null)[]`                                                                                  | Yes      | The list of local tracks.                                                                                                                            |
+| `readyToPublish` | `boolean`                                                                                                                | No       | Whether the local tracks are ready to publish. The default value is `true`.                                                                          |
+| `client`         | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property    | Type                                       | Description                                                                                                                                                                                                         |
+| ----------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isLoading` | `boolean`                                  | <li>`true`: The hook is performing operations related to publishing the tracks.</li><li>`false`: The hook completes operations related to publishing the tracks, but it does not indicate a successful result.</li> |
+| `error`     | `AgoraRTCReactError` &VerticalLine; `null` | Returns `null` if the tracks are successfully published, otherwise throws an error. See [`AgoraRTCReactError`](./data-types#agorartcreacterror) for details.                                                        |
+
+#### Sample code
+
+```jsx
+import { useLocalMicrophoneTrack, useLocalCameraTrack, usePublish } from "agora-rtc-react";
+
+function App() {
+  // get audioTrack and videoTrack before publish
+  const audioTrack = useLocalMicrophoneTrack();
+  const videoTrack = useLocalCameraTrack();
+  usePublish([audioTrack, videoTrack]);
+
+  return <></>;
+}
+```
+
+<H2
+  className="anchor index-auto-group index-hook-uselocalmicrophonetrack"
+  id="uselocalmicrophonetrack"
+>
+  useLocalMicrophoneTrack
+</H2>
+
+This hook lets you create a local microphone audio track. You can call this method multiple times in different components to create multiple tracks. To access the same track in multiple components, pass the same track object to those components.
+
+- This hook can only create the audio track once before the component is destroyed.
+- After the component is unmounted, the audio track created by this hook stops publishing.
+
+#### Parameters
+
+| Parameter          | Type                                                                                                                     | Required | Description                                                                                                                                                                                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ready`            | `boolean`                                                                                                                | No       | Whether it is ready to create the track. The default value is `true`.                                                                                                                                                                                    |
+| `audioTrackConfig` | `MicrophoneAudioTrackInitConfig`                                                                                         | No       | Configurations for initializing the microphone audio track. The default is `{ ANS: true, AEC: true }`. See [`MicrophoneAudioTrackInitConfig`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/microphoneaudiotrackinitconfig.html) for details. |
+| `client`           | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method.                                                                                                     |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property               | Type                                          | Description                                                                                                                                                                                                         |
+| ---------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `localMicrophoneTrack` | `IMicrophoneAudioTrack` &VerticalLine; `null` | The created microphone audio track.                                                                                                                                                                                 |
+| `isLoading`            | `boolean`                                     | <li>`true`: The hook is performing operations related to publishing the tracks.</li><li>`false`: The hook completes operations related to publishing the tracks, but it does not indicate a successful result.</li> |
+| `error`                | `AgoraRTCReactError` &VerticalLine; `null`    | Returns `null` if the track is successfully created, otherwise throws an error. See [`AgoraRTCReactError`](./data-types#agorartcreacterror) for details.                                                            |
+
+#### Sample code
+
+```jsx
+import { useLocalMicrophoneTrack } from "agora-rtc-react";
+
+function App() {
+  const audioTrack = useLocalMicrophoneTrack(true, { ANS: true, AEC: true });
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-uselocalcameratrack" id="uselocalcameratrack">
+  useLocalCameraTrack
+</H2>
+
+This hook lets you create a local camera video track. You can call this method multiple times in different components to create multiple tracks. To access the same track in multiple components, pass the same track object to those components.
+
+- This hook can only create the video track once before the component is destroyed.
+- After the component is unmounted, the video track created by this hook stops publishing.
+
+#### Parameters
+
+| Parameter                | Type                                                                                                                     | Required | Description                                                                                                                                                                                       |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ready`                  | `boolean`                                                                                                                | No       | Whether it is ready to create the track. The default value is `true`.                                                                                                                             |
+| `cameraVideoTrackConfig` | `CameraVideoTrackInitConfig`                                                                                             | No       | Configurations for initializing the camera video track. See [`CameraVideoTrackInitConfig`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/cameravideotrackinitconfig.html) for details. |
+| `client`                 | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method.                                              |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property           | Type                                       | Description                                                                                                                                                                                                         |
+| ------------------ | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `localCameraTrack` | `ICameraVideoTrack` &VerticalLine; `null`  | The created camera video track.                                                                                                                                                                                     |
+| `isLoading`        | `boolean`                                  | <li>`true`: The hook is performing operations related to publishing the tracks.</li><li>`false`: The hook completes operations related to publishing the tracks, but it does not indicate a successful result.</li> |
+| `error`            | `AgoraRTCReactError` &VerticalLine; `null` | Returns `null` if the tracks is successfully created, otherwise throws an error. See [`AgoraRTCReactError`](./data-types#agorartcreacterror) for details.                                                           |
+
+#### Sample code
+
+```jsx
+import { useLocalCameraTrack } from "agora-rtc-react";
+
+function App() {
+  const videoTrack = useLocalCameraTrack();
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-uselocalscreentrack" id="uselocalscreentrack">
+  useLocalScreenTrack
+</H2>
+
+This hook lets you create a local video track for screen-sharing.
+
+- This hook can only create the video track once before the component is destroyed.
+- After the component is unmounted, the video track created by this hook stops publishing.
+
+#### Parameters
+
+| Parameter                    | Type                                                                                                                     | Required | Description                                                                                                                                                                                                                                                                                                    |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ready`                      | `boolean`                                                                                                                | No       | Whether it is ready to create the track. The default value is `true`.                                                                                                                                                                                                                                          |
+| `screenVideoTrackInitConfig` | [`screenVideoTrackInitConfig`](https://api-ref.agora.io/en/voice-sdk/web/4.x/interfaces/screenvideotrackinitconfig.html) | Yes      | Screen-sharing video configuration, including encoding and capturing configurations.                                                                                                                                                                                                                           |
+| `withAudio`                  | `string`                                                                                                                 | Yes      | Whether to share the audio of the screen-sharing input source during screen sharing. Supported values are `"enable"`, `"disable"`, and `"auto"`. See the parameters of [`createScreenVideoTrack`](https://api-ref.agora.io/en/voice-sdk/web/4.x/interfaces/iagorartc.html#createscreenvideotrack) for details. |
+| `client`                     | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html)                       | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method.                                                                                                                                                           |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property      | Type                                                                                           | Description                                                                                                                                                                                                                                                                                                            |
+| ------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `screenTrack` | `[ILocalVideoTrack, ILocalAudioTrack]` &VerticalLine; `ILocalVideoTrack` &VerticalLine; `null` | Depending on the passed `withAudio` value, it returns either the created screen-sharing video track or both the screen-sharing video track and audio track. See the returns of [`createScreenVideoTrack`](https://api-ref.agora.io/en/voice-sdk/web/4.x/interfaces/iagorartc.html#createscreenvideotrack) for details. |
+| `isLoading`   | `boolean`                                                                                      | <li>`true`: The hook is performing operations related to publishing the tracks.</li><li>`false`: The hook completes operations related to publishing the tracks, but it does not indicate a successful result.</li>                                                                                                    |
+| `error`       | `AgoraRTCReactError` &VerticalLine; `null`                                                     | Returns `null` if the track is successfully created, otherwise throws an error. See [`AgoraRTCReactError`](./data-types#agorartcreacterror) for details.                                                                                                                                                               |
+
+#### Caveats
+
+- Agora recommends wrapping the returned video track object in [`AgoraRTCScreenShareProvider`](/components#agorartcscreenshareprovider).
+- If you get the video track and audio track objects from the return value but only publish one track, you need to manually close the unpublished track using the Web SDK's [`ILocalTrack.close`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/ilocaltrack.html#close) method before stopping screen sharing. The other published track will be closed automatically.
+- Subscribing to the local screen-sharing track will incur duplicate billing. Agora recommends that you add checks for local tracks when subscribing to video tracks.
+
+#### Sample code
+
+**Example 1: Wrap the screen-sharing video track in AgoraRTCScreenShareProvider**
+
+```jsx
+import { AgoraRTCScreenShareProvider, LocalVideoTrack, useLocalScreenTrack } from "agora-rtc-react";
+
+function App() {
+  const { screenTrack, error } = useLocalScreenTrack(screenShareOn, {}, "disable");
+
+  return (
+    <AgoraRTCScreenShareProvider client={client}>
+      <LocalVideoTrack play style={{ width: "300px", height: "300px" }} track={screenTrack} />
+    </AgoraRTCScreenShareProvider>
+  );
+}
+```
+
+**Example 2: Avoid subscribing to the local screen-sharing track**
+
+```jsx
+import { useRemoteUsers, useRemoteVideoTracks, useRemoteAudioTracks } from "agora-rtc-react";
+
+function App() {
+  const remoteUsers = useRemoteUsers();
+  const { videoTracks } = useRemoteVideoTracks(
+    // Remove the local user's screen-sharing video track from the subscription list
+    remoteUsers.filter(user => user.uid !== appConfig.ShareScreenUID),
+  );
+  const { audioTracks } = useRemoteAudioTracks(
+    // Remove the local user's screen-sharing audio track from the subscription list
+    remoteUsers.filter(user => user.uid !== appConfig.ShareScreenUID),
+  );
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-useremotevideotracks" id="useremotevideotracks">
+  useRemoteVideoTracks
+</H2>
+
+This hook lets you automatically subscribe to and retrieve remote users' video tracks.
+
+- When the component is unmounted, this hook stops subscribing to the video tracks of the specified `users`.
+- This hook updates the subscribed video tracks when the `users` parameter changes.
+
+#### Parameters
+
+| Parameter | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `users`   | `IAgoraRTCRemoteUser[]` &VerticalLine; `undefined`                                                                       | Yes      | The list of remote users.                                                                                                                            |
+| `client`  | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property      | Type                                       | Description                                                                                                                                                                                                           |
+| ------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `videoTracks` | `IRemoteVideoTrack[]`                      | The list of subscribed video tracks from remote users.                                                                                                                                                                |
+| `isLoading`   | `boolean`                                  | <li>`true`: The hook is performing operations related to subscribing the tracks.</li><li>`false`: The hook completes operations related to subscribing the tracks, but it does not indicate a successful result.</li> |
+| `error`       | `AgoraRTCReactError` &VerticalLine; `null` | Returns `null` if the tracks are successfully subscribed, otherwise throws an error. See [`AgoraRTCReactError`](./data-types#agorartcreacterror) for details.                                                         |
+
+#### Sample code
+
+```jsx
+import { useRemoteUsers, useRemoteVideoTracks } from "agora-rtc-react";
+
+function App() {
+  const remoteUsers = useRemoteUsers();
+  const videoTracks = useRemoteVideoTracks(remoteUsers);
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-useremoteaudiotracks" id="useremoteaudiotracks">
+  useRemoteAudioTracks
+</H2>
+
+This hook lets you automatically subscribe to and retrieve remote users' audio tracks.
+
+- When the component is unmounted, this hook stops subscribing to the audio tracks of the specified `users`.
+- This hook updates the subscribed audio tracks when the `users` parameter changes.
+
+#### Parameters
+
+| Parameter | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `users`   | `IAgoraRTCRemoteUser[]` &VerticalLine; `undefined`                                                                       | Yes      | The list of remote users.                                                                                                                            |
+| `client`  | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property      | Type                                       | Description                                                                                                                                                                                                           |
+| ------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `audioTracks` | `IRemoteAudioTrack[]`                      | The list of subscribed audio tracks from remote users.                                                                                                                                                                |
+| `isLoading`   | `boolean`                                  | <li>`true`: The hook is performing operations related to subscribing the tracks.</li><li>`false`: The hook completes operations related to subscribing the tracks, but it does not indicate a successful result.</li> |
+| `error`       | `AgoraRTCReactError` &VerticalLine; `null` | Returns `null` if the tracks are successfully subscribed, otherwise throws an error. See [`AgoraRTCReactError`](./data-types#agorartcreacterror) for details.                                                         |
+
+#### Sample code
+
+```jsx
+import { useRemoteUsers, useRemoteVideoTracks } from "agora-rtc-react";
+
+function App() {
+  //get remote user list
+  const remoteUsers = useRemoteUsers();
+  const videoTracks = useRemoteVideoTracks(remoteUsers);
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-useremoteusertrack" id="useremoteusertrack">
+  useRemoteUserTrack
+</H2>
+
+This hook lets you retrieve the audio or video track of a remote user.
+
+#### Parameters
+
+| Parameter   | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `user`      | `IAgoraRTCRemoteUser` &VerticalLine; `undefined`                                                                         | Yes      | The remote user.                                                                                                                                     |
+| `mediaType` | `"video"` &VerticalLine; `"audio"`                                                                                       | Yes      | The media type. Pass `"video"` or `"audio"`.                                                                                                         |
+| `client`    | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property    | Type                                                                              | Description                                                                                                                                                                                                         |
+| ----------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `track`     | `IRemoteVideoTrack` &VerticalLine; `IRemoteAudioTrack` &VerticalLine; `undefined` | The audio or video track of the remote user (depending on the `mediaType` you specify). If the remote user or track does not exist, `undefined` is returned.                                                        |
+| `isLoading` | `boolean`                                                                         | <li>`true`: The hook is performing operations related to retrieving the tracks.</li><li>`false`: The hook completes operations related to retrieving the tracks, but it does not indicate a successful result.</li> |
+| `error`     | `AgoraRTCReactError` &VerticalLine; `null`                                        | Returns `null` if the track is successfully retrieved, otherwise throws an error. See [`AgoraRTCReactError`](./data-types#agorartcreacterror) for details.                                                          |
+
+#### Sample code
+
+```jsx
+import { useRemoteUsers, useRemoteUserTrack } from "agora-rtc-react";
+
+function App() {
+  const remoteUsers = useRemoteUsers();
+
+  const videoTrack = useRemoteUserTrack(remoteUsers[0], "video");
+  const audioTrack = useRemoteUserTrack(remoteUsers[0], "audio");
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-useremoteusers" id="useremoteusers">
+  useRemoteUsers
+</H2>
+
+This hook lets you retrieve the list of remote users.
+
+The return value of this hook is updated in the following cases:
+
+- When a remote user joins or leaves the channel.
+- When the role of a remote user changes (for example, from broadcaster to audience).
+- When a remote user publishes or unpublishes the audio or video track.
+
+#### Parameters
+
+| Parameter | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `client`  | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+| Type                    | Description               |
+| ----------------------- | ------------------------- |
+| `IAgoraRTCRemoteUser[]` | The list of remote users. |
+
+#### Sample code
+
+```jsx
+import { useRemoteUsers } from "agora-rtc-react";
+
+function App() {
+  const remoteUsers = useRemoteUsers();
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-useautoplayvideotrack" id="useautoplayvideotrack">
+  useAutoPlayVideoTrack
+</H2>
+
+This hook lets you automatically play a local or remote video track.
+
+- When the component is mounted, this hook determines whether to automatically play the track according to the `play` parameter.
+- When the component is unmounted, this hook stops playing the `track`.
+
+#### Parameters
+
+| Parameter | Type                                                  | Required | Description                                                                                                                                                                                          |
+| --------- | ----------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `track`   | `IRemoteVideoTrack` &VerticalLine; `ILocalVideoTrack` | Yes      | The local or remote video track.                                                                                                                                                                     |
+| `play`    | `boolean`                                             | No       | <li>`true`: Play the track.</li><li>`false`: Stop playing the track.</li>                                                                                                                            |
+| `div`     | `HTMLElement` &VerticalLine; `null`                   | No       | The HTML element used to render the video track. The video automatically plays within this element only if `play` is `true` and `div` is provided. Otherwise, the video does not play automatically. |
+
+#### Returns
+
+None.
+
+#### Sample code
+
+```jsx
+import { useAutoPlayVideoTrack, useLocalCameraTrack } from "agora-rtc-react";
+
+function App() {
+  const videoTrack = useLocalCameraTrack();
+  useAutoPlayVideoTrack(track, play, div);
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-useautoplayaudiotrack" id="useautoplayaudiotrack">
+  useAutoPlayAudioTrack
+</H2>
+
+This hook lets you automatically play a local or remote audio track.
+
+- When the component is mounted, this hook determines whether to automatically play the track according to the `play` parameter.
+- When the component is unmounted, this hook stops playing the `track`.
+
+#### Parameters
+
+| Parameter | Type                                                  | Required | Description                                                               |
+| --------- | ----------------------------------------------------- | -------- | ------------------------------------------------------------------------- |
+| `track`   | `IRemoteAudioTrack` &VerticalLine; `ILocalAudioTrack` | Yes      | The local or remote audio track.                                          |
+| `play`    | `boolean`                                             | No       | <li>`true`: Play the track.</li><li>`false`: Stop playing the track.</li> |
+
+#### Returns
+
+None.
+
+#### Sample code
+
+```jsx
+import { useAutoPlayAudioTrack, useLocalMicrophoneTrack } from "agora-rtc-react";
+
+function App() {
+  const audioTrack = useLocalMicrophoneTrack();
+  useAutoPlayAudioTrack(track, play);
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-useclientevent" id="useclientevent">
+  useClientEvent
+</H2>
+
+This hook lets you listen to specific events of the `IAgoraRTCClient` object.
+
+- When the component is mounted, this hook registers the corresponding event listener.
+- When the component is unmounted, this hook destroys the corresponding event listener.
+
+#### Parameters
+
+| Parameter  | Type                                                                                               | Required | Description                                                                                                                                                                                          |
+| ---------- | -------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `client`   | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) | Yes      | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method.                                                 |
+| `event`    | `string`                                                                                           | Yes      | The event name. Supported values can be found in [`IAgoraRTCClient.on`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html#on).                                           |
+| `listener` | `Function`                                                                                         | Yes      | The callback function to run when the event is triggered. Supported values can be found in [`IAgoraRTCClient.on`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html#on). |
+
+#### Returns
+
+None.
+
+#### Sample code
+
+```jsx
+import { useRTCClient, useClientEvent } from "agora-rtc-react";
+
+function App() {
+  const client = useRTCClient();
+  useClientEvent(client, "connection-state-change", () => {});
+
+  return <></>;
+}
+```
+
+<H2 className="anchor index-auto-group index-hook-usetrackevent" id="usetrackevent">
+  useTrackEvent
+</H2>
+
+This hook lets you listen to specific events of the local or remote track.
+
+- When the component is mounted, this hook registers the corresponding event listener.
+- When the component is unmounted, this hook destroys the corresponding event listener.
+
+#### Parameters
+
+| Parameter  | Type       | Required | Description                                               |
+| ---------- | ---------- | -------- | --------------------------------------------------------- |
+| `track`    | `ITrack`   | Yes      | The local or remote track object.                         |
+| `event`    | `string`   | Yes      | The event name.                                           |
+| `listener` | `Function` | Yes      | The callback function to run when the event is triggered. |
+
+Different `track` objects support different `event` and `listener` combinations. The supported combinations are as follows:
+
+| `track`                                                               | `event` and `listener`                                                                                                         |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `ILocalTrack` &VerticalLine; `ILocalVideoTrack` &VerticalLine; `null` | See [`ILocalTrack.on`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/ilocaltrack.html#on).                          |
+| `IBufferSourceAudioTrack` &VerticalLine; `null`                       | See [`IBufferSourceAudioTrack.on`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/ibuffersourceaudiotrack.html#on).  |
+| `ILocalVideoTrack` &VerticalLine; `null`                              | See [`ILocalVideoTrack.on`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/ilocalvideotrack.html#on).                |
+| `IRemoteTrack` &VerticalLine; `null`                                  | See [`IRemoteTrack.on`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iremotetrack.html#event_first_frame_decoded). |
+
+#### Returns
+
+None.
+
+#### Sample code
+
+```jsx
+import { useRTCClient, useLocalCameraTrack, useTrackEvent } from "agora-rtc-react";
+
+function App() {
+  const videoTrack = useLocalCameraTrack();
+  useTrackEvent(client, "video-element-visible-status", () => {});
+
+  return <></>;
+}
+```

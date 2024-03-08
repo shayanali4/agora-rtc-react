@@ -1,0 +1,37 @@
+## useRemoteAudioTracks
+
+This hook lets you automatically subscribe to and retrieve remote users' audio tracks.
+
+- When the component is unmounted, this hook stops subscribing to the audio tracks of the specified `users`.
+- This hook updates the subscribed audio tracks when the `users` parameter changes.
+
+#### Parameters
+
+| Parameter | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `users`   | `IAgoraRTCRemoteUser[]` &VerticalLine; `undefined`                                                                       | Yes      | The list of remote users.                                                                                                                            |
+| `client`  | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+Returns an object containing the following properties:
+
+| Property      | Type                                       | Description                                                                                                                                                                                                           |
+| ------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `audioTracks` | `IRemoteAudioTrack[]`                      | The list of subscribed audio tracks from remote users.                                                                                                                                                                |
+| `isLoading`   | `boolean`                                  | <li>`true`: The hook is performing operations related to subscribing the tracks.</li><li>`false`: The hook completes operations related to subscribing the tracks, but it does not indicate a successful result.</li> |
+| `error`       | `AgoraRTCReactError` &VerticalLine; `null` | Returns `null` if the tracks are successfully subscribed, otherwise throws an error. See [`AgoraRTCReactError`](https://api-ref.agora.io/en/video-sdk/reactjs/2.x/classes/AgoraRTCReactError.html) for details.       |
+
+#### Sample code
+
+```jsx
+import { useRemoteUsers, useRemoteVideoTracks } from "agora-rtc-react";
+
+function App() {
+  //get remote user list
+  const remoteUsers = useRemoteUsers();
+  const videoTracks = useRemoteVideoTracks(remoteUsers);
+
+  return <></>;
+}
+```

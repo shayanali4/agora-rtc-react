@@ -1,0 +1,27 @@
+## useNetworkQuality
+
+用于获取本地用户网络质量。
+
+#### 参数
+
+| 参数名   | 类型                                                                                          | 是否必选 | 描述                                                                                                         |
+| -------- | --------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+| `client` | [`IAgoraRTCClient`](/api-ref/rtc/react/interfaces/iagorartcclient.html) &VerticalLine; `null` | 可选     | 通过 Web SDK 的 [`IAgoraRTC.createClient`](/api-ref/rtc/react/interfaces/iagorartc.html#createclient) 创建。 |
+
+#### 返回值
+
+| 类型             | 描述                                                                                                                              |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `NetworkQuality` | 本地用户的网络质量信息。详见 [`NetworkQuality`](https://doc.shengwang.cn/api-ref/rtc/react/react-sdk/data-types#networkquality)。 |
+
+#### 使用示例
+
+```jsx
+import { useNetworkQuality } from "agora-rtc-react";
+
+function App() {
+  const networkQuality = useNetworkQuality();
+
+  return <div>{networkQuality}</div>;
+}
+```

@@ -1,0 +1,31 @@
+## useAutoPlayVideoTrack
+
+This hook lets you automatically play a local or remote video track.
+
+- When the component is mounted, this hook determines whether to automatically play the track according to the `play` parameter.
+- When the component is unmounted, this hook stops playing the `track`.
+
+#### Parameters
+
+| Parameter | Type                                                  | Required | Description                                                                                                                                                                                          |
+| --------- | ----------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `track`   | `IRemoteVideoTrack` &VerticalLine; `ILocalVideoTrack` | Yes      | The local or remote video track.                                                                                                                                                                     |
+| `play`    | `boolean`                                             | No       | <li>`true`: Play the track.</li><li>`false`: Stop playing the track.</li>                                                                                                                            |
+| `div`     | `HTMLElement` &VerticalLine; `null`                   | No       | The HTML element used to render the video track. The video automatically plays within this element only if `play` is `true` and `div` is provided. Otherwise, the video does not play automatically. |
+
+#### Returns
+
+None.
+
+#### Sample code
+
+```jsx
+import { useAutoPlayVideoTrack, useLocalCameraTrack } from "agora-rtc-react";
+
+function App() {
+  const videoTrack = useLocalCameraTrack();
+  useAutoPlayVideoTrack(track, play, div);
+
+  return <></>;
+}
+```

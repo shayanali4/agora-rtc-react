@@ -1,0 +1,29 @@
+## RemoteVideoTrack
+
+This component plays the video track of a remote user and does not support specifying the playback device.
+
+#### Props
+
+| Prop    | Type                                                                                                   | Default value | Description                                                               |
+| ------- | ------------------------------------------------------------------------------------------------------ | ------------- | ------------------------------------------------------------------------- |
+| `track` | [`IRemoteVideoTrack`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iremotevideotrack.html) | None          | The remote video track object.                                            |
+| `play`  | `boolean`                                                                                              | None          | <li>`true`: Play the track.</li><li>`false`: Stop playing the track.</li> |
+
+#### Sample code
+
+```jsx
+import { RemoteAudioTrack, useJoin, useRemoteAudioTracks, useRemoteUsers } from "agora-rtc-react";
+
+function App() {
+  const remoteUsers = useRemoteUsers();
+  const audioTracks = useRemoteAudioTracks(remoteUsers);
+
+  return (
+    <>
+      {audioTracks.map(track => (
+        <RemoteAudioTrack key={track.getUserId()} play track={track} />
+      ))}
+    </>
+  );
+}
+```

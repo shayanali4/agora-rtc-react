@@ -1,0 +1,25 @@
+## AgoraRTCScreenShareProvider
+
+This component is a [context provider](https://react.dev/learn/passing-data-deeply-with-context), which lets all of the components inside `children` read the `client` prop you pass for screen sharing.
+
+#### Props
+
+| Prop       | Type                                                                                               | Default value | Description                                                                                                                                          |
+| ---------- | -------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `client`   | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) | None          | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+| `children` | `ReactNode`                                                                                        | None          | The React nodes to be rendered.                                                                                                                      |
+
+#### Caveats
+
+You can use `AgoraRTCScreenShareProvider` and `AgoraRTCProvider` together, but they do not share the `client` prop.
+
+#### Sample code
+
+```jsx
+import AgoraRTC, { AgoraRTCScreenShareProvider } from "agora-rtc-react";
+
+function App({ children }) {
+  const [client] = useState(() => AgoraRTC.createClient({ mode: "rtc", codec: "vp8" }));
+  return <AgoraRTCScreenShareProvider client={client}>{children}</AgoraRTCScreenShareProvider>;
+}
+```

@@ -1,0 +1,20 @@
+## AgoraRTCReactError
+
+Thrown errors.
+
+`AgoraRTCReactError` extends the browser's [Error object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error). When you directly print the `AgoraRTCReactError` object, you can see the error message.
+
+| Property    | Type     | Required | Description                                                                                                                               |
+| ----------- | -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `rtcMethod` | `string` | Yes      | The Web SDK method that throws the error, which helps you determine the corresponding Hook where the error occurred. See the table below. |
+
+**Mapping of `rtcMethod` to Hooks**
+
+| `rtcMethod`                                                                                             | Corresponding Hook        |
+| ------------------------------------------------------------------------------------------------------- | ------------------------- |
+| `"IAgoraRTCClient.join"`                                                                                | `useJoin`                 |
+| `"IAgoraRTC.createCameraVideoTrack" `                                                                   | `useLocalCameraTrack`     |
+| `"IAgoraRTC.createMicrophoneAudioTrack"`                                                                | `useLocalMicrophoneTrack` |
+| `"IAgoraRTCClient.publish"`                                                                             | `usePublish`              |
+| `"IAgoraRTCClient.unsubscribe"` or `"IAgoraRTCClient.subscribe"`                                        | `useRemoteUserTrack`      |
+| `"IAgoraRTCClient.unsubscribe"` or `"IAgoraRTCClient.subscribe"` or `"IAgoraRTCClient.massUnsubscribe"` | `useRemoteVideoTracks `   |

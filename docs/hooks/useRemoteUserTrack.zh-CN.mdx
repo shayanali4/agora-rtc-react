@@ -1,0 +1,36 @@
+## useRemoteUserTrack
+
+用于获取远端用户音视频轨道。
+
+#### 参数
+
+| 参数名      | 类型                                                                                          | 是否必选 | 描述                                                                                                         |
+| ----------- | --------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+| `user`      | `IAgoraRTCRemoteUser` &VerticalLine; `undefined`                                              | 必选     | 远端用户对象。                                                                                               |
+| `mediaType` | `"video"` &VerticalLine; `"audio"`                                                            | 必选     | 媒体类型，支持传入 `"video"` 或 `"audio"`。                                                                  |
+| `client`    | [`IAgoraRTCClient`](/api-ref/rtc/react/interfaces/iagorartcclient.html) &VerticalLine; `null` | 可选     | 通过 Web SDK 的 [`IAgoraRTC.createClient`](/api-ref/rtc/react/interfaces/iagorartc.html#createclient) 创建。 |
+
+#### 返回值
+
+返回一个包含以下属性的对象：
+
+| 属性        | 类型                                                                              | 描述                                                                                                                                                                     |
+| ----------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `track`     | `IRemoteVideoTrack` &VerticalLine; `IRemoteAudioTrack` &VerticalLine; `undefined` | 远端用户的音频或视频轨道（取决于传入的 `mediaType`）。如果远端用户或音频、视频轨道不存在，则返回 `undefined`。                                                           |
+| `isLoading` | `boolean`                                                                         | <li>`true`：正在执行获取轨道相关操作。</li><li>`false`：已经执行获取轨道相关操作，但不代表成功获取轨道。</li>                                                            |
+| `error`     | `AgoraRTCReactError` &VerticalLine; `null`                                        | 获取轨道成功则返回 `null`，获取轨道失败则抛出错误。错误详见 [`AgoraRTCReactError`](https://doc.shengwang.cn/api-ref/rtc/react/react-sdk/data-types#agorartcreacterror)。 |
+
+#### 使用示例
+
+```jsx
+import { useRemoteUsers, useRemoteUserTrack } from "agora-rtc-react";
+
+function App() {
+  const remoteUsers = useRemoteUsers();
+
+  const videoTrack = useRemoteUserTrack(remoteUsers[0], "video");
+  const audioTrack = useRemoteUserTrack(remoteUsers[0], "audio");
+
+  return <></>;
+}
+```

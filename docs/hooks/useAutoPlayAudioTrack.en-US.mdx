@@ -1,0 +1,30 @@
+## useAutoPlayAudioTrack
+
+This hook lets you automatically play a local or remote audio track.
+
+- When the component is mounted, this hook determines whether to automatically play the track according to the `play` parameter.
+- When the component is unmounted, this hook stops playing the `track`.
+
+#### Parameters
+
+| Parameter | Type                                                  | Required | Description                                                               |
+| --------- | ----------------------------------------------------- | -------- | ------------------------------------------------------------------------- |
+| `track`   | `IRemoteAudioTrack` &VerticalLine; `ILocalAudioTrack` | Yes      | The local or remote audio track.                                          |
+| `play`    | `boolean`                                             | No       | <li>`true`: Play the track.</li><li>`false`: Stop playing the track.</li> |
+
+#### Returns
+
+None.
+
+#### Sample code
+
+```jsx
+import { useAutoPlayAudioTrack, useLocalMicrophoneTrack } from "agora-rtc-react";
+
+function App() {
+  const audioTrack = useLocalMicrophoneTrack();
+  useAutoPlayAudioTrack(track, play);
+
+  return <></>;
+}
+```

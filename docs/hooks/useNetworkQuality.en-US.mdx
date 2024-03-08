@@ -1,0 +1,27 @@
+## useNetworkQuality
+
+Returns the network quality of the local user.
+
+#### Parameters
+
+| Parameter | Type                                                                                                                     | Required | Description                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `client`  | [`IAgoraRTCClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartcclient.html) &VerticalLine; `null` | No       | Created using the Web SDK's [`IAgoraRTC.createClient`](https://api-ref.agora.io/en/video-sdk/web/4.x/interfaces/iagorartc.html#createclient) method. |
+
+#### Returns
+
+| Type             | Description                                                                                                                                                  |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `NetworkQuality` | The network quality of the local user. See [`NetworkQuality`](https://api-ref.agora.io/en/video-sdk/reactjs/2.x/interfaces/NetworkQuality.html) for details. |
+
+#### Sample code
+
+```jsx
+import { useNetworkQuality } from "agora-rtc-react";
+
+function App() {
+  const networkQuality = useNetworkQuality();
+
+  return <div>{networkQuality}</div>;
+}
+```
